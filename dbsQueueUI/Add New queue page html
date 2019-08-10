@@ -1,0 +1,19 @@
+<!--addqueue.html-->
+<div class="col-md-6 col-md-offset-3">
+    <h4 style="text-align:center;color:blue">Add New Queue</h4>
+    <form name="form" ng-submit="vm.login()" role="form">
+        <div class="form-group" ng-class="{ 'has-error': form.name.$dirty && form.name.$error.required }">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" class="form-control" ng-model="vm.name" required />
+            <span ng-show="form.name.$dirty && form.name.$error.required" class="help-block">Name is required</span>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error': form.maxlength.$dirty && form.maxlength.$error.required }">
+            <label for="maxlength">Maximum Length</label>
+            <input type="maxlength" name="maxlength" id="maxlength" class="form-control" ng-model="vm.maxlength" required />
+            <span ng-show="form.maxlength.$dirty && form.maxlength.$error.required" class="help-block">maxlength is required</span>
+        </div>
+        <div class="form-actions" layout="row">
+            <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Add Queue</button>
+        </div>
+    </form>
+</div>
