@@ -16,12 +16,10 @@
 
 	
 		<properties>
-<springfox.version>2.7.0</springfox.version>		
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>1.5.3.RELEASE</spring-cloud.version>
-		<springfox.version>2.7.0</springfox.version>
-		<sonar.host.url>http://localhost:9000</sonar.host.url>
+		<springfox.version>2.9.2</springfox.version>
 		<org.mapstruct.version>1.1.0.Final</org.mapstruct.version>
 	</properties>
 
@@ -57,10 +55,11 @@
 			<!-- <version>2.6.0</version> -->
 		</dependency>
 		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger-ui</artifactId>
-			<version>2.7.0</version>
-		</dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger-ui</artifactId>
+    <version>2.9.2</version>
+</dependency>
+
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
