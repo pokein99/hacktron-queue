@@ -1,0 +1,7 @@
+https://dbs-hactron-queue-quick-eland.cfapps.io/createQueue/Q2-test --create queue
+
+https://dbs-hactron-queue-quick-eland.cfapps.io/deleteAllQueueElements/Q2-test --delete queue elements
+
+https://dbs-hactron-queue-quick-eland.cfapps.io/deleteQueue/Q2-test - delete queue
+
+https://dbs-hactron-queue-quick-eland.cfapps.io/getQueue -get Q
