@@ -9,9 +9,10 @@ import com.dbs.hacktron.constants.JwtConstants;
 
 @RestController
 public class AuthenticationController {
-	
+
 	@GetMapping("generateToken/{userId}")
 	public String generateToken(@PathVariable String userId) {
-		return JwtUtil.generateToken(JwtConstants.secretKey, JwtConstants.issuers, JwtConstants.expTimeInMillis, userId);
+		return JwtUtil.generateToken(JwtConstants.secretKey, JwtConstants.issuers, JwtConstants.expTimeInMillis,
+				userId);
 	}
 }

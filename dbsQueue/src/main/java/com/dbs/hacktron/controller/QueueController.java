@@ -23,132 +23,144 @@ import com.dbs.hacktron.service.QueueService;
 @CrossOrigin(origins = "*")
 @RestController("/dbs")
 public class QueueController {
-	
+
 	@Autowired
-	QueueService queueService; 
-	
+	QueueService queueService;
+
 	/***
 	 * create new queue
+	 * 
 	 * @param queueName
 	 * @return
-	 * @throws QueueException 
-	 * @throws JwtTokenException 
+	 * @throws QueueException
+	 * @throws JwtTokenException
 	 */
 	@PostMapping("createQueue/{queueName}/{queueLimit}")
-	public ResponseEntity<Object> createQueue(@PathVariable String queueName, @PathVariable Integer queueLimit, @RequestParam(required=true) String jwtToken) throws QueueException {
+	public ResponseEntity<Object> createQueue(@PathVariable String queueName, @PathVariable Integer queueLimit,
+			@RequestParam(required = true) String jwtToken) throws QueueException {
 		try {
 			authenticate(jwtToken);
-		} catch (JwtTokenException e) {
+		} catch (Exception e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<>(queueService.createQueue(queueName, queueLimit),HttpStatus.OK);
+		return new ResponseEntity<>(queueService.createQueue(queueName, queueLimit), HttpStatus.OK);
 	}
-	
+
 	/***
 	 * fetch contents of all queues
+	 * 
 	 * @return
-	 * @throws JwtTokenException 
+	 * @throws JwtTokenException
 	 */
 	@GetMapping("fetchAllQueue")
-	public ResponseEntity<Object> getQueue(@RequestParam(required=true) String jwtToken) {
+	public ResponseEntity<Object> getQueue(@RequestParam(required = true) String jwtToken) {
 		try {
 			authenticate(jwtToken);
-		} catch (JwtTokenException e) {
+		} catch (Exception e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity( queueService.getQueues(), HttpStatus.OK);
+		return new ResponseEntity(queueService.getQueues(), HttpStatus.OK);
 	}
-	
+
 	/***
 	 * fetch contents of all queues
+	 * 
 	 * @return
-	 * @throws JwtTokenException 
+	 * @throws JwtTokenException
 	 */
 	@GetMapping("fetchQueueKey")
-	public ResponseEntity<Object> getQueueKey(@RequestParam(required=true) String jwtToken) {
+	public ResponseEntity<Object> getQueueKey(@RequestParam(required = true) String jwtToken) {
 		try {
 			authenticate(jwtToken);
-		} catch (JwtTokenException e) {
+		} catch (Exception e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity(queueService.getQueues().keySet(), HttpStatus.OK);
 	}
-	
+
 	/***
 	 * add element to queue
+	 * 
 	 * @param queueName
 	 * @param queueValue
 	 * @return
-	 * @throws JwtTokenException 
-	 * @throws QueueException 
+	 * @throws JwtTokenException
+	 * @throws QueueException
 	 */
 	@PostMapping("addToQueue/{queueName}/{queueValue}")
-	public ResponseEntity<Object> addQueue(@PathVariable String queueName, @PathVariable String queueValue, @RequestParam(required=true) String jwtToken)  {
+	public ResponseEntity<Object> addQueue(@PathVariable String queueName, @PathVariable String queueValue,
+			@RequestParam(required = true) String jwtToken) {
 		try {
 			authenticate(jwtToken);
-			queueService.add(queueName,queueValue);
-		} catch (QueueException | JwtTokenException e) {
+			queueService.add(queueName, queueValue);
+		} catch (Exception e) {
 			return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity(queueService.getQueues(), HttpStatus.OK);
 	}
-	
+
 	/***
 	 * clear contents of queue
+	 * 
 	 * @param queueName
 	 * @return
-	 * @throws JwtTokenException 
-	 * @throws QueueException 
+	 * @throws JwtTokenException
+	 * @throws QueueException
 	 */
 	@DeleteMapping("deleteAllQueueElements/{queueName}")
-	public ResponseEntity<String> deleteAllQueueElements(@PathVariable String queueName, @RequestParam(required=true) String jwtToken)  {
+	public ResponseEntity<String> deleteAllQueueElements(@PathVariable String queueName,
+			@RequestParam(required = true) String jwtToken) {
 		try {
 			authenticate(jwtToken);
 			queueService.clearQueue(queueName);
-		} catch (QueueException | JwtTokenException e) {
+		} catch (Exception e) {
 			return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity("ALL Elements from "+queueName+" deleted",HttpStatus.OK);
+		return new ResponseEntity("ALL Elements from " + queueName + " deleted", HttpStatus.OK);
 	}
-	
+
 	/***
 	 * delete queue
+	 * 
 	 * @param queueName
 	 * @return
-	 * @throws JwtTokenException 
-	 * @throws QueueException 
+	 * @throws JwtTokenException
+	 * @throws QueueException
 	 */
 	@DeleteMapping("deleteQueue/{queueName}")
-	public ResponseEntity<String> deleteQueue(@PathVariable String queueName, @RequestParam(required=true) String jwtToken)  {
+	public ResponseEntity<String> deleteQueue(@PathVariable String queueName,
+			@RequestParam(required = true) String jwtToken) {
 		try {
 			authenticate(jwtToken);
 			queueService.remove(queueName);
-		} catch (QueueException | JwtTokenException e) {
+		} catch (Exception e) {
 			return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity("DELETED queue: "+queueName,HttpStatus.OK);
+		return new ResponseEntity("DELETED queue: " + queueName, HttpStatus.OK);
 	}
-	
+
 	/***
 	 * remove element from queue
+	 * 
 	 * @param queueName
 	 * @param queueValue
 	 * @return
-	 * @throws JwtTokenException 
-	 * @throws QueueException 
+	 * @throws JwtTokenException
+	 * @throws QueueException
 	 */
 	@DeleteMapping("deleteQueueValue/{queueName}")
-	public ResponseEntity<String> deleteQueueValue(@PathVariable String queueName, @RequestParam(required=true) String jwtToken) throws JwtTokenException {
-		 String response;
+	public ResponseEntity<String> deleteQueueValue(@PathVariable String queueName,
+			@RequestParam(required = true) String jwtToken) {
+		String response;
 		try {
 			authenticate(jwtToken);
 			response = queueService.removeElement(queueName);
-		} catch (QueueException e) {
+		} catch (Exception e) {
 			return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity(response,HttpStatus.OK);
+		return new ResponseEntity(response, HttpStatus.OK);
 	}
-	
+
 	private Boolean authenticate(String jwtToken) throws JwtTokenException {
 		return JwtUtil.tokenVerifier(jwtToken);
 	}
