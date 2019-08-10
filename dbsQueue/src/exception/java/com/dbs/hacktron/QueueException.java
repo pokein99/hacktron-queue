@@ -1,4 +1,4 @@
-package hacktron.exception;
+package com.dbs.hacktron
 
 public class QueueException extends Exception{
 

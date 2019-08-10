@@ -1,4 +1,4 @@
-package hacktron.exception;
+package com.dbs.hacktron
 
 import hacktron.exception.QueueException;
 
