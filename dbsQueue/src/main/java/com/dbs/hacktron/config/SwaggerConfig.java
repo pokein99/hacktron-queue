@@ -24,7 +24,7 @@ public class SwaggerConfig {
 
 	private ApiInfo apiInfo() {
 		return new ApiInfo("DBS Queue Rest API", "Queue API", "API TOS", "Terms of service",
-				new Contact("Vaibhav Mehta", "www.vdmehta36.com", "vamehta@dbs.com"), "License of API",
+				new Contact("DBS Hacktron", "https://www.dbs.com", "vamehta@dbs.com"), "License of API",
 				"https://opensource.org/licenses/MIT", Collections.emptyList());
 	}
 }
